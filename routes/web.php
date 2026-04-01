@@ -39,6 +39,9 @@ Route::middleware(['auth', \App\Http\Middleware\CheckPermission::class])->group(
 
     // Referral
     Route::get('/referral', [ReferralController::class, 'index'])->name('referral.index');
+    Route::post('/referral', [ReferralController::class, 'store'])->name('referral.store');
+    Route::put('/referral/{referral}/status', [ReferralController::class, 'updateStatus'])->name('referral.updateStatus');
+    Route::delete('/referral/{referral}', [ReferralController::class, 'destroy'])->name('referral.destroy');
 
     // Form Pengajuan
     Route::get('/form-pengajuan', [PengajuanController::class, 'index'])->name('pengajuan.index');

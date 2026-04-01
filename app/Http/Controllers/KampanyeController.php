@@ -13,7 +13,7 @@ class KampanyeController extends Controller
 
     public function index()
     {
-        $kampanyes = Kampanye::with('pic')->latest()->get();
+        $kampanyes = Kampanye::with('pic')->latest()->paginate(10);
         $users = User::where('status', true)->get();
         return view('kampanye.index', compact('kampanyes', 'users'));
     }

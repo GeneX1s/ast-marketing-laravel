@@ -4,140 +4,204 @@
 
 @section('content')
 <div class="mb-8">
-    <h1 class="text-2xl font-bold text-gray-900">Dashboard Marketing</h1>
-    <p class="text-gray-500 mt-1">Ringkasan performa marketing dan pencapaian target hari ini.</p>
+    <h1 class="text-2xl font-bold text-gray-900">Dashboard</h1>
+    <p class="text-gray-500 mt-1 text-sm">Selamat datang kembali, berikut ringkasan hari ini</p>
 </div>
 
 <!-- Stats Grid -->
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-    <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm relative overflow-hidden group hover:shadow-md transition-shadow">
-        <div class="absolute -right-4 -top-4 w-24 h-24 bg-blue-50 rounded-full group-hover:scale-110 transition-transform duration-500"></div>
-        <div class="relative">
-            <div class="flex justify-between items-start mb-4">
-                <div class="p-3 bg-blue-100 text-blue-600 rounded-xl">
-                    @include('icons.megaphone')
-                </div>
-                <span class="flex items-center text-sm font-medium text-green-600 bg-green-50 px-2 py-1 rounded-lg">
-                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
-                    12.5%
-                </span>
-            </div>
-            <div>
-                <p class="text-sm font-medium text-gray-500">Total Kampanye</p>
-                <h3 class="text-3xl font-bold text-gray-900 mt-1">124</h3>
-            </div>
+    <!-- Kampanye Card -->
+    <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm flex items-center justify-between">
+        <div>
+            <p class="text-sm font-medium text-gray-500">Kampanye Aktif</p>
+            <h3 class="text-3xl font-bold text-gray-900 mt-1">12</h3>
+            <p class="text-xs text-gray-400 mt-1">3 terjadwal hari ini</p>
+        </div>
+        <div class="p-3 bg-blue-50 text-blue-600 rounded-xl">
+            @include('icons.target')
         </div>
     </div>
-
-    <!-- Leads Card -->
-    <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm relative overflow-hidden group hover:shadow-md transition-shadow">
-        <div class="absolute -right-4 -top-4 w-24 h-24 bg-purple-50 rounded-full group-hover:scale-110 transition-transform duration-500"></div>
-        <div class="relative">
-            <div class="flex justify-between items-start mb-4">
-                <div class="p-3 bg-purple-100 text-purple-600 rounded-xl">
-                    @include('icons.user')
-                </div>
-                <span class="flex items-center text-sm font-medium text-green-600 bg-green-50 px-2 py-1 rounded-lg">
-                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
-                    8.2%
-                </span>
-            </div>
-            <div>
-                <p class="text-sm font-medium text-gray-500">Total Prospek</p>
-                <h3 class="text-3xl font-bold text-gray-900 mt-1">8,432</h3>
-            </div>
+    <!-- Prospek Card -->
+    <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm flex items-center justify-between">
+        <div>
+            <p class="text-sm font-medium text-gray-500">Prospek Baru</p>
+            <h3 class="text-3xl font-bold text-gray-900 mt-1">47</h3>
+            <p class="text-xs text-gray-400 mt-1">Minggu ini</p>
+        </div>
+        <div class="p-3 bg-green-50 text-green-600 rounded-xl">
+            @include('icons.users')
         </div>
     </div>
-
-    <!-- Conversion Card -->
-    <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm relative overflow-hidden group hover:shadow-md transition-shadow">
-        <div class="absolute -right-4 -top-4 w-24 h-24 bg-green-50 rounded-full group-hover:scale-110 transition-transform duration-500"></div>
-        <div class="relative">
-            <div class="flex justify-between items-start mb-4">
-                <div class="p-3 bg-green-100 text-green-600 rounded-xl">
-                    @include('icons.file-text')
-                </div>
-                <span class="flex items-center text-sm font-medium text-red-600 bg-red-50 px-2 py-1 rounded-lg">
-                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 17h8m0 0V9m0 8l-8-8-4 4-6-6"></path></svg>
-                    2.4%
-                </span>
-            </div>
-            <div>
-                <p class="text-sm font-medium text-gray-500">Konversi Merchant</p>
-                <h3 class="text-3xl font-bold text-gray-900 mt-1">1,204</h3>
-            </div>
+    <!-- Pengajuan Card -->
+    <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm flex items-center justify-between">
+        <div>
+            <p class="text-sm font-medium text-gray-500">Pengajuan Pending</p>
+            <h3 class="text-3xl font-bold text-gray-900 mt-1">23</h3>
+            <p class="text-xs text-gray-400 mt-1">8 perlu verifikasi</p>
+        </div>
+        <div class="p-3 bg-orange-50 text-orange-600 rounded-xl">
+            @include('icons.file-text')
         </div>
     </div>
-
-    <!-- Revenue Card -->
-    <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm relative overflow-hidden group hover:shadow-md transition-shadow">
-        <div class="absolute -right-4 -top-4 w-24 h-24 bg-orange-50 rounded-full group-hover:scale-110 transition-transform duration-500"></div>
-        <div class="relative">
-            <div class="flex justify-between items-start mb-4">
-                <div class="p-3 bg-orange-100 text-orange-600 rounded-xl">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                </div>
-                <span class="flex items-center text-sm font-medium text-green-600 bg-green-50 px-2 py-1 rounded-lg">
-                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
-                    14.6%
-                </span>
-            </div>
-            <div>
-                <p class="text-sm font-medium text-gray-500">Total Transaksi Sales</p>
-                <h3 class="text-3xl font-bold text-gray-900 mt-1">Rp 48.2M</h3>
-            </div>
+    <!-- Sign-up Card -->
+    <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm flex items-center justify-between">
+        <div>
+            <p class="text-sm font-medium text-gray-500">Total Sign-up Referral</p>
+            <h3 class="text-3xl font-bold text-gray-900 mt-1">156</h3>
+            <p class="text-xs text-gray-400 mt-1">Bulan ini</p>
+        </div>
+        <div class="p-3 bg-purple-50 text-purple-600 rounded-xl">
+            @include('icons.gift')
         </div>
     </div>
 </div>
 
-<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-    <!-- Activity Chart (Placeholder) -->
-    <div class="lg:col-span-2 bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
-        <div class="flex justify-between items-center mb-6">
-            <div>
-                <h3 class="font-bold text-gray-900">Aktivitas Kampanye</h3>
-                <p class="text-sm text-gray-500">Performa harian 30 hari terakhir</p>
+<!-- Aksi Cepat -->
+<div class="mb-8">
+    <h3 class="font-bold text-gray-900 mb-4">Aksi Cepat</h3>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <a href="{{ route('kampanye.index') }}" class="flex items-center justify-center gap-2 py-3 px-4 rounded-xl border border-blue-200 text-blue-600 hover:bg-blue-50 transition-colors font-medium text-sm">
+            <span class="text-lg leading-none font-light">+</span> Tambah Kampanye
+        </a>
+        <a href="{{ route('laporan-sales.index') }}" class="flex items-center justify-center gap-2 py-3 px-4 rounded-xl border border-green-200 text-green-600 hover:bg-green-50 transition-colors font-medium text-sm">
+            <span class="text-lg leading-none font-light">+</span> Tambah Prospek
+        </a>
+        <a href="{{ route('referral.index') }}" class="flex items-center justify-center gap-2 py-3 px-4 rounded-xl border border-purple-200 text-purple-600 hover:bg-purple-50 transition-colors font-medium text-sm">
+            <span class="text-lg leading-none font-light">+</span> Buat Kode Referral
+        </a>
+        <a href="{{ route('pengajuan.index') }}" class="flex items-center justify-center gap-2 py-3 px-4 rounded-xl border border-orange-200 text-orange-600 hover:bg-orange-50 transition-colors font-medium text-sm">
+            <span class="text-lg leading-none font-light">+</span> Buat Pengajuan
+        </a>
+    </div>
+</div>
+
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+    <!-- Posting Terjadwal Hari Ini -->
+    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden flex flex-col h-full">
+        <div class="p-6 border-b border-gray-100 flex justify-between items-center">
+            <div class="flex items-center gap-2">
+                <div class="text-gray-400">@include('icons.clock', ['class' => 'w-5 h-5'])</div>
+                <h3 class="font-bold text-gray-900">Posting Terjadwal Hari Ini</h3>
             </div>
-            <select class="bg-gray-50 border border-gray-200 text-gray-700 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2">
-                <option>Bulan Ini</option>
-                <option>Bulan Lalu</option>
-                <option>Tahun Ini</option>
-            </select>
+            <a href="{{ route('kampanye.index') }}" class="text-sm text-blue-600 hover:underline">Lihat Semua</a>
         </div>
-        <div class="h-64 flex items-end justify-between gap-2">
-            <!-- Mock Bar Chart -->
-            @for($i = 0; $i < 30; $i++)
-                @php $height = rand(20, 100); @endphp
-                <div class="w-full bg-blue-100 rounded-t-sm hover:bg-blue-300 transition-colors relative group" style="height: {{ $height }}%">
-                    <div class="absolute -top-8 left-1/2 -translate-x-1/2 bg-gray-900 text-white text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity">
-                        {{ $height * 10 }}
+        <div class="divide-y divide-gray-50 flex-1">
+            <!-- Item 1 -->
+            <div class="p-5 hover:bg-gray-50 transition-colors flex justify-between items-start">
+                <div>
+                    <h4 class="font-semibold text-gray-900 text-sm">Posting Instagram - Promo Lebaran</h4>
+                    <div class="flex items-center gap-3 mt-2">
+                        <span class="text-xs text-gray-500 flex items-center gap-1">@include('icons.clock', ['class' => 'w-3 h-3']) 10:00</span>
+                        <span class="text-[10px] font-medium px-2 py-0.5 rounded-full bg-blue-50 text-blue-600">Instagram</span>
                     </div>
                 </div>
-            @endfor
+                <span class="text-[10px] font-medium px-3 py-1 rounded-full bg-yellow-50 text-yellow-700">Pending</span>
+            </div>
+            <!-- Item 2 -->
+            <div class="p-5 hover:bg-gray-50 transition-colors flex justify-between items-start">
+                <div>
+                    <h4 class="font-semibold text-gray-900 text-sm">Email Blast - Fitur Baru AST PAY</h4>
+                    <div class="flex items-center gap-3 mt-2">
+                        <span class="text-xs text-gray-500 flex items-center gap-1">@include('icons.clock', ['class' => 'w-3 h-3']) 14:00</span>
+                        <span class="text-[10px] font-medium px-2 py-0.5 rounded-full bg-indigo-50 text-indigo-600">Email</span>
+                    </div>
+                </div>
+                <span class="text-[10px] font-medium px-3 py-1 rounded-full bg-yellow-50 text-yellow-700">Pending</span>
+            </div>
+            <!-- Item 3 -->
+            <div class="p-5 hover:bg-gray-50 transition-colors flex justify-between items-start">
+                <div>
+                    <h4 class="font-semibold text-gray-900 text-sm">WhatsApp Campaign - Follow Up Merchant</h4>
+                    <div class="flex items-center gap-3 mt-2">
+                        <span class="text-xs text-gray-500 flex items-center gap-1">@include('icons.clock', ['class' => 'w-3 h-3']) 16:00</span>
+                        <span class="text-[10px] font-medium px-2 py-0.5 rounded-full bg-green-50 text-green-700">WhatsApp</span>
+                    </div>
+                </div>
+                <span class="text-[10px] font-medium px-3 py-1 rounded-full bg-yellow-50 text-yellow-700">Pending</span>
+            </div>
+            <!-- Item 4 -->
+            <div class="p-5 hover:bg-gray-50 transition-colors flex justify-between items-start">
+                <div>
+                    <h4 class="font-semibold text-gray-900 text-sm">TikTok Video - Tutorial Pembayaran</h4>
+                    <div class="flex items-center gap-3 mt-2">
+                        <span class="text-xs text-gray-500 flex items-center gap-1">@include('icons.clock', ['class' => 'w-3 h-3']) 19:00</span>
+                        <span class="text-[10px] font-medium px-2 py-0.5 rounded-full border border-gray-200 text-gray-700 bg-white">TikTok</span>
+                    </div>
+                </div>
+                <span class="text-[10px] font-medium px-3 py-1 rounded-full bg-yellow-50 text-yellow-700">Pending</span>
+            </div>
+            <!-- Item 5 -->
+            <div class="p-5 hover:bg-gray-50 transition-colors flex justify-between items-start">
+                <div>
+                    <h4 class="font-semibold text-gray-900 text-sm">SEO Article - Keuntungan Merchant</h4>
+                    <div class="flex items-center gap-3 mt-2">
+                        <span class="text-xs text-gray-500 flex items-center gap-1">@include('icons.clock', ['class' => 'w-3 h-3']) Pending</span>
+                        <span class="text-[10px] font-medium px-2 py-0.5 rounded-full bg-orange-50 text-orange-600">Blog</span>
+                    </div>
+                </div>
+                <span class="text-[10px] font-medium px-3 py-1 rounded-full bg-yellow-50 text-yellow-700">Pending</span>
+            </div>
         </div>
     </div>
 
-    <!-- Recent Prospects -->
-    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+    <!-- Follow-up Prioritas -->
+    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden flex flex-col h-full">
         <div class="p-6 border-b border-gray-100 flex justify-between items-center">
-            <h3 class="font-bold text-gray-900">Prospek Terbaru</h3>
-            <a href="/form-pengajuan" class="text-sm text-blue-600 hover:text-blue-700 font-medium">Lihat Semua</a>
-        </div>
-        <div class="divide-y divide-gray-50">
-            @for($i = 1; $i <= 5; $i++)
-            <div class="p-4 flex items-center gap-4 hover:bg-gray-50 transition-colors cursor-pointer">
-                <div class="w-10 h-10 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-bold text-sm">
-                    P{{ $i }}
-                </div>
-                <div class="flex-1 min-w-0">
-                    <p class="text-sm font-semibold text-gray-900 truncate">PT. Bisnis Jaya {{ $i }}</p>
-                    <p class="text-xs text-gray-500 truncate">Pengajuan Pendaftaran Merchant</p>
-                </div>
-                <div class="text-xs font-medium px-2 py-1 rounded bg-yellow-50 text-yellow-700">
-                    Pending
-                </div>
+            <div class="flex items-center gap-2">
+                <div class="text-orange-500">@include('icons.alert-circle', ['class' => 'w-5 h-5'])</div>
+                <h3 class="font-bold text-gray-900">Follow-up Prioritas</h3>
             </div>
-            @endfor
+            <a href="{{ route('laporan-sales.index') }}" class="text-sm text-blue-600 hover:underline">Lihat Semua</a>
+        </div>
+        <div class="divide-y divide-gray-50 flex-1">
+            <!-- Item 1 -->
+            <div class="p-5 hover:bg-gray-50 transition-colors flex justify-between items-start">
+                <div>
+                    <h4 class="font-semibold text-gray-900 text-sm">PT Maju Jaya</h4>
+                    <p class="text-xs text-gray-500 mt-1">PIC: Siti Rahayu</p>
+                    <div class="flex items-center gap-3 mt-2">
+                        <span class="text-[10px] font-medium px-2 py-0.5 rounded-full bg-blue-50 text-blue-600">Negosiasi</span>
+                        <span class="text-xs text-gray-400 font-medium">Jatuh tempo: Hari ini</span>
+                    </div>
+                </div>
+                <span class="text-[10px] font-medium px-3 py-1 rounded-full bg-red-50 text-red-600">Tinggi</span>
+            </div>
+            <!-- Item 2 -->
+            <div class="p-5 hover:bg-gray-50 transition-colors flex justify-between items-start">
+                <div>
+                    <h4 class="font-semibold text-gray-900 text-sm">Toko Berkah Abadi</h4>
+                    <p class="text-xs text-gray-500 mt-1">PIC: Ahmad Yani</p>
+                    <div class="flex items-center gap-3 mt-2">
+                        <span class="text-[10px] font-medium px-2 py-0.5 rounded-full bg-purple-50 text-purple-600">Demo</span>
+                        <span class="text-xs text-gray-400 font-medium">Jatuh tempo: Hari ini</span>
+                    </div>
+                </div>
+                <span class="text-[10px] font-medium px-3 py-1 rounded-full bg-red-50 text-red-600">Tinggi</span>
+            </div>
+            <!-- Item 3 -->
+            <div class="p-5 hover:bg-gray-50 transition-colors flex justify-between items-start">
+                <div>
+                    <h4 class="font-semibold text-gray-900 text-sm">UD Sejahtera</h4>
+                    <p class="text-xs text-gray-500 mt-1">PIC: Budi Santoso</p>
+                    <div class="flex items-center gap-3 mt-2">
+                        <span class="text-[10px] font-medium px-2 py-0.5 rounded-full bg-cyan-50 text-cyan-700">Dihubungi</span>
+                        <span class="text-xs text-gray-400 font-medium">Jatuh tempo: Besok</span>
+                    </div>
+                </div>
+                <span class="text-[10px] font-medium px-3 py-1 rounded-full bg-yellow-50 text-yellow-700">Sedang</span>
+            </div>
+            <!-- Item 4 -->
+            <div class="p-5 hover:bg-gray-50 transition-colors flex justify-between items-start">
+                <div>
+                    <h4 class="font-semibold text-gray-900 text-sm">CV Karya Mandiri</h4>
+                    <p class="text-xs text-gray-500 mt-1">PIC: Rina Wati</p>
+                    <div class="flex items-center gap-3 mt-2">
+                        <span class="text-[10px] font-medium px-2 py-0.5 rounded-full bg-gray-100 text-gray-700 border border-gray-200">Baru</span>
+                        <span class="text-xs text-gray-400 font-medium">Jatuh tempo: Besok</span>
+                    </div>
+                </div>
+                <span class="text-[10px] font-medium px-3 py-1 rounded-full bg-yellow-50 text-yellow-700">Sedang</span>
+            </div>
         </div>
     </div>
 </div>
