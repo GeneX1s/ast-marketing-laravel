@@ -3,27 +3,36 @@
 @section('title', 'Referral')
 
 @section('content')
-<div class="mb-8 flex justify-between items-start" x-data="{
+<div x-data="{
         showModal: false,
         showEditModal: false, 
         showDeleteModal: false,
-        formItem: { id: null, recruiter_name: '', referral_code: '', commission_type: 'fixed', commission_value: '' },
+        formItem: { id: null, recruiter_name: '', referral_code: '', commission_type: 'fixed', commission_value_fixed: '', commission_value_percentage: '' },
         deleteData: { id: null, name: '' },
         copyToClipboard(text) {
             navigator.clipboard.writeText(text);
             alert('Kode Referral disalin: ' + text);
         }
     }">
-    
-    <div>
-        <h1 class="text-2xl font-bold text-gray-900">Referral</h1>
-        <p class="text-gray-500 mt-1">Kelola kode referral dan komisi</p>
-    </div>
 
-    <button @click="showModal = true; formItem = { recruiter_name: '', referral_code: '', commission_type: 'fixed', commission_value: '' }" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors flex items-center gap-2 shadow-sm">
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
-        Buat Kode Referral
-    </button>
+    <!-- Flash Errors -->
+    @if ($errors->any())
+        <div class="mb-4 bg-red-50 text-red-600 p-4 rounded-lg font-medium text-sm">
+            Terdapat kesalahan input. Pastikan Kode Referral unik dan data lengkap!
+        </div>
+    @endif
+
+    <div class="mb-8 flex justify-between items-start">
+        <div>
+            <h1 class="text-2xl font-bold text-gray-900">Referral</h1>
+            <p class="text-gray-500 mt-1">Kelola kode referral dan komisi</p>
+        </div>
+
+        <button @click="showModal = true; formItem = { id: null, recruiter_name: '', referral_code: '', commission_type: 'fixed', commission_value_fixed: '', commission_value_percentage: '' }" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors flex items-center gap-2 shadow-sm">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+            Buat Kode Referral
+        </button>
+    </div>
     
     <!-- Modals Overlay -->
     <div x-show="showModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm" style="display: none;" x-transition>
@@ -32,10 +41,13 @@
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
             </button>
             
-            <h3 class="text-xl font-bold text-gray-900 mb-6">Buat Kode Referral Baru</h3>
+            <h3 class="text-xl font-bold text-gray-900 mb-6" x-text="formItem.id ? 'Edit Kode Referral' : 'Buat Kode Referral Baru'"></h3>
             
-            <form action="{{ route('referral.store') }}" method="POST">
+            <form :action="formItem.id ? ('{{ url('/referral') }}/' + formItem.id) : '{{ route('referral.store') }}'" method="POST">
                 @csrf
+                <template x-if="formItem.id">
+                    <input type="hidden" name="_method" value="PUT">
+                </template>
                 <div class="space-y-4">
                     <div>
                         <label class="block text-[12px] font-semibold text-gray-700 mb-1 uppercase tracking-wider">Nama Recruiter/Tim</label>
@@ -57,33 +69,34 @@
 
                     <div x-show="formItem.commission_type === 'fixed'">
                         <label class="block text-[12px] font-semibold text-gray-700 mb-1 uppercase tracking-wider">Nominal Komisi (Rp)</label>
-                        <input type="number" name="commission_value_fixed" x-model="formItem.commission_value" placeholder="50000" class="w-full border-gray-300 rounded-lg focus:ring-1 focus:ring-blue-500 focus:border-blue-500 text-sm py-2.5">
+                        <input type="number" name="commission_value_fixed" x-model="formItem.commission_value_fixed" :required="formItem.commission_type === 'fixed'" placeholder="50000" class="w-full border-gray-300 rounded-lg focus:ring-1 focus:ring-blue-500 focus:border-blue-500 text-sm py-2.5">
                     </div>
                     
                     <div x-show="formItem.commission_type === 'percentage'" style="display: none;">
                         <label class="block text-[12px] font-semibold text-gray-700 mb-1 uppercase tracking-wider">Persentase Komisi (%)</label>
-                        <input type="number" name="commission_value_percentage" x-model="formItem.commission_value" placeholder="10" min="1" max="100" class="w-full border-gray-300 rounded-lg focus:ring-1 focus:ring-blue-500 focus:border-blue-500 text-sm py-2.5">
+                        <input type="number" name="commission_value_percentage" x-model="formItem.commission_value_percentage" :required="formItem.commission_type === 'percentage'" placeholder="10" min="1" max="100" class="w-full border-gray-300 rounded-lg focus:ring-1 focus:ring-blue-500 focus:border-blue-500 text-sm py-2.5">
                     </div>
                 </div>
                 
                 <div class="mt-8 grid grid-cols-2 gap-4">
                     <button type="button" @click="showModal = false" class="w-full py-2.5 border border-gray-300 rounded-lg text-gray-700 font-medium hover:bg-gray-50 text-sm transition-colors">Batal</button>
-                    <button type="submit" class="w-full py-2.5 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 text-sm shadow-sm transition-colors">Buat</button>
+                    <button type="submit" class="w-full py-2.5 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 text-sm shadow-sm transition-colors" x-text="formItem.id ? 'Simpan' : 'Buat'"></button>
                 </div>
             </form>
         </div>
     </div>
 
     <!-- Toolbar & Table Container -->
-    <div class="fixed mt-24 right-8 left-64 lg:left-72">
-        <div class="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden p-6 relative">
-            
-            <!-- Toolbar -->
-            <div class="flex flex-row gap-4 mb-6 items-center w-full">
-                <div class="relative flex-1">
-                    <svg class="absolute top-1/2 -translate-y-1/2 left-5 w-4 h-4 text-gray-400 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-                    <input type="text" placeholder="Cari recruiter atau kode..." class="w-full pl-10 pr-4 py-2.5 bg-white border border-gray-300 rounded-lg text-sm focus:ring-1 focus:ring-blue-500 focus:border-blue-500 outline-none">
+    <div class="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden p-6 relative">
+        
+        <!-- Toolbar -->
+        <div class="flex flex-row gap-4 mb-6 items-center w-full">
+            <div class="relative flex-1">
+                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                     <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                 </div>
+                <input type="text" placeholder="Cari recruiter atau kode..." class="w-full pl-10 pr-4 py-2.5 bg-white border border-gray-300 rounded-lg text-sm focus:ring-1 focus:ring-blue-500 focus:border-blue-500 outline-none">
+            </div>
                 <div class="relative w-56 shrink-0">
                     <select class="w-full appearance-none bg-white border border-gray-300 rounded-lg pl-4 pr-10 py-2.5 text-sm text-gray-700 focus:ring-1 focus:ring-blue-500 focus:border-blue-500 outline-none cursor-pointer">
                         <option>Semua Status</option>
@@ -137,8 +150,7 @@
                             </td>
                             <td class="px-4 py-4">
                                 <div class="flex items-center justify-center gap-3">
-                                    <!-- Edit btn placeholder -->
-                                    <button type="button" class="text-blue-600 hover:text-blue-800 transition-colors" title="Edit">
+                                    <button type="button" @click="formItem = { id: {{ $r->id ?? 0 }}, recruiter_name: '{{ $r->recruiter_name }}', referral_code: '{{ $r->referral_code }}', commission_type: '{{ $r->commission_type }}', commission_value_fixed: '{{ $r->commission_type == 'fixed' ? $r->commission_value : '' }}', commission_value_percentage: '{{ $r->commission_type == 'percentage' ? $r->commission_value : '' }}' }; showModal = true" class="text-blue-600 hover:text-blue-800 transition-colors" title="Edit">
                                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
                                     </button>
                                     
@@ -158,7 +170,6 @@
             </div>
             
         </div>
-    </div>
     
     <!-- Delete Modal Overlay -->
     <div x-show="showDeleteModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm" style="display: none;" x-transition>

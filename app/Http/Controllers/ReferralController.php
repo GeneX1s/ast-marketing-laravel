@@ -41,6 +41,27 @@ class ReferralController extends Controller
         return redirect()->route('referral.index')->with('success', 'Kode referral berhasil dibuat.');
     }
 
+    public function update(Request $request, Referral $referral)
+    {
+        $data = $request->validate([
+            'recruiter_name' => 'required|string|max:255',
+            'referral_code' => 'required|string|max:255|unique:referrals,referral_code,' . $referral->id,
+            'commission_type' => 'required|in:fixed,percentage',
+        ]);
+        
+        $commissionValue = $request->commission_type === 'fixed' 
+            ? $request->input('commission_value_fixed') 
+            : $request->input('commission_value_percentage');
+
+        $data['commission_value'] = $commissionValue;
+
+        $referral->update($data);
+
+        $this->logActivity('Referral', 'UPDATE', "Updated referral code: {$referral->referral_code}");
+
+        return redirect()->route('referral.index')->with('success', 'Kode referral berhasil diperbarui.');
+    }
+
     public function updateStatus(Request $request, Referral $referral)
     {
         $referral->update([
